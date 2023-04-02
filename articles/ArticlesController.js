@@ -2,8 +2,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get("/categories", (req, res) => {
-    res.send("Rota de categorias")
+router.get("/articles", (req, res) => {
+    res.send("Rota de artigos")
 })
 
 module.exports = router;
