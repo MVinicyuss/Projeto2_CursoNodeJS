@@ -1,0 +1,8 @@
+{
+  "name": "GuidePress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MVinicyuss/Projeto2_CursoNodeJS.git",
+  "author": "marcos.vinicyus.c.s@gmail.com <marcos.vinicyus.c.s@gmail.com>",
+  "license": "MIT"
+}
