@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
 
+//Setando as viwes
+app.set('view engine', 'ejs')
+
 app.get("/", (req, res) => {
-    res.send("Bem vindo")
+    res.render("index")
 })
 
 
