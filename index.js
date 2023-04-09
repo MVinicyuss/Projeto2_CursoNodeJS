@@ -38,7 +38,6 @@ app.get("/", (req, res) => {
     res.render("index")
 })
 
-
 // Porta do servidor
 app.listen(8080, () => {
     console.log("Servidor rodando")
