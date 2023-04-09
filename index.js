@@ -2,6 +2,10 @@
 const express = require('express');
 const app = express();
 
+//Ativando Body Parser
+app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
+
 const connection            = require('./database/database');
 
 const categoriesController  = require('./categories/CategoriesController');
