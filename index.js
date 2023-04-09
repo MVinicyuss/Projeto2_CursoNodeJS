@@ -26,7 +26,7 @@ connection
         console.log(error)
     })
 
-//
+//Rotas
 app.use("/", categoriesController);
 app.use("/", articlesController);
 
@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
 })
 
 
-
+// Porta do servidor
 app.listen(8080, () => {
     console.log("Servidor rodando")
 })
