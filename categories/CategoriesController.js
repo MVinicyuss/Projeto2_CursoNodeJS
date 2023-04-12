@@ -54,7 +54,7 @@ router.get("/admin/categories/edit:id", (req, res) => {
     then(categoria => {
         if(categoria != undefined){
             
-            
+            res.render("/admin/categories/edit", {categoria: categoria})
 
         }else{
             res.redirect("/admin/categories")
