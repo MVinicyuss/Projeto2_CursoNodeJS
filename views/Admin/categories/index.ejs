@@ -15,13 +15,13 @@
             </tr>
         </thead>
         <tbody>
-            <% categories.forEach(category => { %>
+            <% category.forEach(category => { %>
                 <tr>
                     <th><%= category.id %></th>
                     <th><%= category.title %></th>
                     <th><%= category.slug %></th>  
                     <th>
-                        <button class="btn btn-warning">Editar</button>
+                        <a href="/admin/categories/edit/<%= category.id %>" class="btn btn-warning">Editar</a>
                         <form method="post" action="/categories/delete" style="display: inline;" onsubmit="confirmarDeleteCategory(event, this)">
                             <input type="hidden" name="id" value="<%= category.id %>">
                             <button class="btn btn-danger">Deletar</button>
