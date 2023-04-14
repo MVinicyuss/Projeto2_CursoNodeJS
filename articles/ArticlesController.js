@@ -5,7 +5,7 @@ const Category  = require('../categories/Category')
 const Article   = require('./Article')
 const slugify   = require('slugify')
 
-
+//Rota que passa os artigos para a view
 router.get("/admin/articles", (req, res) => {
     Article.findAll().then(articles => {
         res.render("admin/articles/index", {article: articles})
