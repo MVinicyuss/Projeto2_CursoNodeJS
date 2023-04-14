@@ -7,7 +7,7 @@ const slugify   = require('slugify')
 
 
 router.get("/admin/articles", (req, res) => {
-    res.send("Rota de artigos")
+    res.render("admin/articles/index")
 })
 
 //Rota de acessar pagina de criação de artigos
