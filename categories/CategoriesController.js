@@ -1,9 +1,8 @@
 //Importações
-const express = require('express');
-const router = express.Router();
-
-const Category = require('./Category')
-const slugify = require('slugify')
+const express   = require('express');
+const router    = express.Router();
+const Category  = require('./Category')
+const slugify   = require('slugify')
 
 router.get("/admin/categories/new", (req, res) => {
     res.render('../views/Admin/categories/new')
