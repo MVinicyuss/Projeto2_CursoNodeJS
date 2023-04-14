@@ -7,7 +7,9 @@ const slugify   = require('slugify')
 
 
 router.get("/admin/articles", (req, res) => {
-    res.render("admin/articles/index")
+    Article.findAll().then(articles => {
+        res.render("admin/articles/index", {article: articles})
+    })
 })
 
 //Rota de acessar pagina de criação de artigos
