@@ -7,9 +7,16 @@
             <h2>Cadastro de Artigo</h2>
         </div>
         <div class="card-body">
-            <form method="post" action="/categories/save">
+            <form method="post" action="/admin/articles/save">
                 <input class="form-control" type="text" name="title" placeholder="Defina o tipo do artigo"><br>
                 <textarea class="form-control" placeholder="Escreva o artigo aqui!" name="body" id="article"></textarea><br>
+                <label>Categoria</label>
+                <select class="form-control" name="category">
+                    <% category.forEach(category => { %>                  
+                       <option value="<%= category.id %>"><%= category.title %></option>          
+                    <% })%>
+                </select>
+                <br>
                 <button class="btn btn-success">Cadastrar</button>
             </form>
         </div>
