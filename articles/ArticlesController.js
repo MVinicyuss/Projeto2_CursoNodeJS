@@ -36,7 +36,26 @@ router.post("/admin/articles/save", (req, res) => {
     }).then(() => {
         res.redirect("/admin/articles")
     })
+})
 
+//Rota de Deletar Artgios
+router.post("/articles/delete", (req, res) => {
+    let id = req.body.id
+    if(id != undefined){
+        if(!isNaN(id)){     //é um numero?
+            Article.destroy({
+                where: {
+                    id: id
+                }
+            }).then(() => {
+                res.redirect("/admin/articles")
+            })
+        }else{
+            res.redirect("/admin/articles")
+        }
+    }else{
+        res.redirect("/admin/articles")
+    }
 })
 
 module.exports = router;
