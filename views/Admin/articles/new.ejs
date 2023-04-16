@@ -10,7 +10,6 @@
             <form method="post" action="/admin/articles/save">
                 <input class="form-control" type="text" name="title" placeholder="Defina o tipo do artigo"><br>
                 <textarea class="form-control" placeholder="Escreva o artigo aqui!" name="body" id="article"></textarea><br>
-                <label>Categoria</label>
                 <select class="form-control" name="category">
                     <% category.forEach(category => { %>                  
                        <option value="<%= category.id %>"><%= category.title %></option>          
@@ -22,6 +21,7 @@
         </div>
     </div>
 </div>
+
 <%- include ('../../partials/footer.ejs') %>
 
 
