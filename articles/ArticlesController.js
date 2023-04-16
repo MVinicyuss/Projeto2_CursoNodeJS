@@ -58,4 +58,57 @@ router.post("/articles/delete", (req, res) => {
     }
 })
 
+//Rota da pegina de edição de artigo
+router.get("/admin/articles/edit/:id", (req, res) => {
+    let id = req.params.id
+
+    if(isNaN(id)){
+        res.redirect("/admin/articles")
+    }
+
+    Article.findByPk(id)
+    .then(article => {
+        if(article != undefined){  
+
+            Category.findAll().then(categories => {
+                res.render("admin/articles/edit", {article: article, categories: categories})
+
+            })
+            
+        }else{
+            res.redirect("/admin/articles")
+        }
+    }).catch(erro => {
+        res.redirect("/admin/articles")
+    })
+})
+
+//Rota para salvar a edição
+router.post("/articles/update", (req, res) => {
+    let id      = req.body.id
+    let title   = req.body.title
+    let body    = req.body.body
+    let category    = req.body.category
+
+    Article.update({title: title, slug: slugify(title), body: body, categoryId: category}, {
+        where: {
+            id: id
+        }
+    }).then(() => {
+        res.redirect("/admin/articles")
+    }).catch(err => {
+        res.redirect("/admin/articles")
+    })
+})
+
+//Rota de paginação
+router.get("/articles/page/:num", (req, res) => {
+    let page     = req.params.num
+
+    Article.findAndCountAll().then(articles => {
+        res.json(articles)
+    })
+
+})
+
 module.exports = router;
