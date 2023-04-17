@@ -103,10 +103,35 @@ router.post("/articles/update", (req, res) => {
 
 //Rota de paginação
 router.get("/articles/page/:num", (req, res) => {
-    let page     = req.params.num
+    let page    = req.params.num;
+    let offset  = 0;
 
-    Article.findAndCountAll().then(articles => {
-        res.json(articles)
+    if(isNaN(page) || page == 1){
+        offset = 0;
+    }else{
+        offset = 4 * parseInt(page)
+    }
+
+    Article.findAndCountAll({
+        limit: 3,
+        offset: offset
+    }).then(articles => {
+
+        let next;
+        if(offset + 4 >= articles.count){
+            next = false
+        }else{
+            next = true
+        }
+
+        let result = {
+            next: next,
+            articles: articles
+        }
+
+        Category.findAll().then(categories => {
+            res.render("admin/articles/page", {result: result, categories: categories})
+        })
     })
 
 })
