@@ -2,17 +2,31 @@
 const express = require('express');
 const app = express();
 
+const session = require('express-session')
+
 //Ativando Body Parser
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded({extended: 'false'})); // to support URL-encoded bodies
+
+//Ativando Sessions
+app.use(session({
+    secret: "asdijadowqdbmnmn%4126(%$)(_",
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 30000
+    }
+}))
 
 const connection            = require('./database/database');
 
 const categoriesController  = require('./categories/CategoriesController');
 const articlesController    = require('./articles/ArticlesController');
+const usersController    = require('./user/UsersController');
 
 const Article = require('./articles/Article')
 const Category = require('./categories/Category')
+const User = require('./user/User')
 
 
 //Setando as viwes
@@ -33,12 +47,14 @@ connection
 //Rotas
 app.use("/", categoriesController);
 app.use("/", articlesController);
+app.use("/", usersController);
 
 app.get("/", (req, res) => {
     Article.findAll({
         order:[
             ['id', 'DESC']
-        ]
+        ],
+        limit: 4
     }).then(articles => {
         Category.findAll().then(categories =>{
             res.render("index", {articles: articles, categories: categories})
@@ -88,6 +104,27 @@ app.get("/category/:slug", (req, res) => {
         res.redirect("/")
     })
 })
+
+//Rota de SESSIONS
+app.get("/admin/session", (req, res) => {
+    req.session.treinamento = "Formação nodejs"
+    req.session.ano = "2023"
+    req.session.email = "testea%@gmail.com"
+    req.session.user = {
+        username: "Teste",
+        id: 23
+    }
+    res.send("Sessão gerada")
+})
+
+app.get("/admin/leitura", (req, res) => {
+    res.json({
+        treinamento: req.session.treinamento,
+        ano: req.session.ano,
+        email: req.session.email
+    })
+})
+
 
 // Porta do servidor
 app.listen(8080, () => {
