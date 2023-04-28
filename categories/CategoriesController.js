@@ -3,8 +3,9 @@ const express   = require('express');
 const router    = express.Router();
 const Category  = require('./Category')
 const slugify   = require('slugify')
+const adminAuth = require('../middlewares/adminAuth')
 
-router.get("/admin/categories/new", (req, res) => {
+router.get("/admin/categories/new", adminAuth, (req, res) => {
     res.render('../views/Admin/categories/new')
 })
 
@@ -24,14 +25,14 @@ router.post("/categories/save", (req, res) => {
 })
 
 //Acessando a lista de categorias
-router.get("/admin/categories", (req, res) => {
+router.get("/admin/categories", adminAuth, (req, res) => {
     Category.findAll().then(category => {
         res.render("admin/categories/index", {category: category})
     })
 })
 
 //Deletando uma categoria
-router.post("/categories/delete", (req, res) => {
+router.post("/categories/delete", adminAuth, (req, res) => {
     let id = req.body.id
     if(id != undefined){
         if(!isNaN(id)){     //é um numero?
@@ -51,7 +52,7 @@ router.post("/categories/delete", (req, res) => {
 })
 
 //Acesso a pagina para editar o nome da categoria
-router.get("/admin/categories/edit/:id", (req, res) => {
+router.get("/admin/categories/edit/:id", adminAuth, (req, res) => {
     let id = req.params.id
 
     if(isNaN(id)){
@@ -71,7 +72,7 @@ router.get("/admin/categories/edit/:id", (req, res) => {
 })
 
 //Editando o nome da categoria
-router.post("/categories/update", (req, res) => {
+router.post("/categories/update", adminAuth, (req, res) => {
     let id      = req.body.id
     let title   = req.body.title
 
